@@ -1,5 +1,5 @@
 paths:
-  input_data_path: "data_manipulation/raw/heart_cleveland_upload.csv"
+  input_data_path: "data/raw/heart_cleveland_upload.csv"
   output_model_path: "models/model.pkl"
   metric_data_path: "metrics/metrics.json"
 
@@ -29,3 +29,9 @@ feature_params:
         - "ca"
         - "thal"
   target_col: "condition"
+
+metrics:
+  - "accuracy_score"
+  - "precision_score"
+  - "recall_score"
+  - "roc_auc_score"

@@ -3,7 +3,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, OrdinalEncoder
 
-from ..schemes import FeatureParams
+from schemes import FeatureParams
 
 
 def get_target(data: pd.DataFrame, feature_params: FeatureParams) -> pd.Series:
@@ -17,7 +17,7 @@ def build_num_transform_pipeline(num_preprocessor: str) -> Pipeline:
     elif num_preprocessor == "MinMaxScaler":
         pipeline = Pipeline([("min_max_scaler", MinMaxScaler())])
     else:
-        raise NotImplemented
+        raise NotImplementedError()
     return pipeline
 
 
@@ -27,7 +27,7 @@ def build_categorical_transform_pipeline(categorical_preprocessor: str) -> Pipel
     elif categorical_preprocessor == "OrdinalEncoder":
         pipeline = Pipeline([("ordinal_enc", OrdinalEncoder())])
     else:
-        raise NotImplemented
+        raise NotImplementedError()
     return pipeline
 
 
