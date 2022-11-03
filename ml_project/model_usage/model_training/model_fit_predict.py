@@ -48,6 +48,7 @@ def cnt_metrics(predictions: np.ndarray, real_values: pd.Series, metrics: List[s
     return metrics_dict
 
 
-def serialize_model(model: Pipeline, output_file: str) -> None:
+def serialize_model(model: Pipeline, output_file: str, model_type: str) -> None:
+    output_file = output_file + f"/{model_type}_model.pkl"
     with open(output_file, "wb+") as output:
         pickle.dump(model, output)
