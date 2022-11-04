@@ -1,5 +1,5 @@
 import pandas as pd
-from fixtures import config_file, synthetic_data
+from fixtures import config_file
 from model_usage.data_manipulation import RandomCustomTransformer
 
 

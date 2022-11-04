@@ -2,9 +2,15 @@ import json
 
 import click
 
-from data_manipulation import read_data, train_val_split, get_target, make_features
+from data_manipulation import (
+    read_data, train_val_split,
+    get_target, make_features
+)
 from data_manipulation import build_transformer
-from model_training import train_model, create_fitted_pipeline, predict, cnt_metrics, serialize_model
+from model_training import (
+    train_model, create_fitted_pipeline,
+    predict, cnt_metrics, serialize_model
+)
 from schemes import get_params_from_config
 
 

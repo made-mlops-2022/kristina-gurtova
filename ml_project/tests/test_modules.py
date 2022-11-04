@@ -1,4 +1,3 @@
-import json
 import os
 import pickle
 import sys
@@ -16,7 +15,6 @@ sys.path.append(f"{cur_path}/../model_usage")
 
 import pandas as pd
 import pytest
-from pathlib import Path
 
 from model_usage.data_manipulation import read_data, train_val_split, get_target, build_transformer, make_features
 from model_usage.model_training import train_model, create_fitted_pipeline, serialize_model

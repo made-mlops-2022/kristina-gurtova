@@ -1,6 +1,5 @@
 import pandas as pd
 import synthia as syn
-from sklearn import preprocessing
 
 
 def generate_synthetic_data(real_data_path: str) -> None:

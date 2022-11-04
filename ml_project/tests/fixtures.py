@@ -1,8 +1,5 @@
 import sys
 import pathlib
-from pathlib import Path
-import pandas as pd
-import pytest
 
 cur_path = pathlib.Path(__file__).parent.resolve()
 sys.path.append(f"{cur_path}/../")
@@ -10,6 +7,10 @@ sys.path.append(f"{cur_path}/../model_usage")
 
 from model_usage.schemes import get_params_from_config
 from test_utils import generate_synthetic_data
+
+from pathlib import Path
+import pandas as pd
+import pytest
 
 config_path = "configs/logreg_config.yaml"
 

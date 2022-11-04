@@ -10,12 +10,12 @@ sys.path.append(f"{cur_path}/../model_usage")
 
 from model_usage import train_pipeline, predict_pipeline
 
-from fixtures import config_file, synthetic_data
+from fixtures import config_file
 
 config_path = "configs/logreg_config.yaml"
 
 
-def test_end2end_training(config_file, synthetic_data):
+def test_end2end_training(config_file):
     train_pipeline(config_path)
     assert os.path.exists(config_file.paths.model_path + f"/{config_file.train_params.model_type}_model.pkl")
     assert os.path.exists(config_file.paths.metric_data_path + f"/{config_file.train_params.model_type}_metrics.json")
