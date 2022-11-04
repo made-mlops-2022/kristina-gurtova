@@ -3,7 +3,6 @@ import os
 import pickle
 import sys
 
-from sklearn import preprocessing
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.utils.validation import check_is_fitted
@@ -22,7 +21,8 @@ from pathlib import Path
 from model_usage.schemes import get_params_from_config
 from model_usage.data_manipulation import read_data, train_val_split, get_target, build_transformer, make_features
 from model_usage.model_training import train_model, create_fitted_pipeline, serialize_model
-from model_usage import train_pipeline, predict
+from model_usage import train_pipeline, predict_pipeline
+from model_usage.model_testing import load_model, predict_labels, write_predictions
 from test_utils import generate_synthetic_data
 
 config_path = "configs/logreg_config.yaml"
@@ -40,9 +40,8 @@ def synthetic_data(config_file):
     if not gen_data_file.exists():
         generate_synthetic_data(config_file.paths.train_data_path)
     data = pd.read_csv(config_file.paths.train_data_path.replace(".csv", "_synthetic.csv"))
-    lab = preprocessing.LabelEncoder()
-    data_transformed = lab.fit_transform(data[config_file.feature_params.target_col])
-    data[config_file.feature_params.target_col] = data_transformed
+    data[data[config_file.feature_params.target_col] >= 0.5] = 1
+    data[data[config_file.feature_params.target_col] < 0.5] = 0
     return data
 
 
@@ -98,6 +97,27 @@ def test_serialize_model(config_file, synthetic_data):
     assert isinstance(model, Pipeline)
 
 
+def test_load_model(config_file):
+    model = load_model(config_file.paths.model_path, config_file.train_params.model_type)
+    assert isinstance(model, Pipeline)
+    check_is_fitted(model)
+
+
+def test_predict_labels(config_file, synthetic_data):
+    model = load_model(config_file.paths.model_path, config_file.train_params.model_type)
+    predicts = predict_labels(model, synthetic_data)
+    assert len(predicts) == len(synthetic_data)
+    assert all(predicts >= 0.0)
+    assert all(predicts <= 1.1)
+
+
+def test_write_predictions(config_file, synthetic_data):
+    model = load_model(config_file.paths.model_path, config_file.train_params.model_type)
+    predicts = predict_labels(model, synthetic_data)
+    write_predictions(predicts, config_file.paths.predictions_path)
+    assert os.path.exists(config_file.paths.predictions_path)
+
+
 def test_end2end_training(config_file, synthetic_data):
     train_pipeline(config_path)
     assert os.path.exists(config_file.paths.model_path + f"/{config_file.train_params.model_type}_model.pkl")
@@ -106,3 +126,7 @@ def test_end2end_training(config_file, synthetic_data):
         metrics = json.load(f)
     for metric in config_file.metrics:
         assert metric in metrics
+
+
+def test_end2end_predicting():
+    predict_pipeline(config_path)
