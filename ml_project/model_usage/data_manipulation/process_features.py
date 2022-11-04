@@ -7,6 +7,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, O
 
 from schemes import FeatureParams
 
+from .custom_transformer import RandomCustomTransformer
+
 
 def get_target(data: pd.DataFrame, feature_params: FeatureParams) -> pd.Series:
     target = data[feature_params.target_col]
@@ -18,6 +20,8 @@ def build_num_transform_pipeline(num_preprocessor: str) -> Pipeline:
         pipeline = Pipeline([("standard_scaler", StandardScaler())])
     elif num_preprocessor == "MinMaxScaler":
         pipeline = Pipeline([("min_max_scaler", MinMaxScaler())])
+    elif num_preprocessor == "RandomCustomTransformer":
+        pipeline = Pipeline([("random_custom_transformer", RandomCustomTransformer())])
     else:
         raise NotImplementedError()
     return pipeline

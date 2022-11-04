@@ -17,7 +17,7 @@ train_params:
 
 feature_params:
   preprocess:
-    numerical_preprocessor: "StandardScaler"
+    numerical_preprocessor: "RandomCustomTransformer"
     numerical_columns:
         - "age"
         - "trestbps"
