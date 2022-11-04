@@ -16,7 +16,8 @@ SklearnClassificationModel = Union[LogisticRegression, RandomForestClassifier]
 
 def train_model(features: pd.DataFrame, target: pd.Series, train_params: TrainParams) -> SklearnClassificationModel:
     if train_params.model_type == "LogisticRegression":
-        cls = LogisticRegression(random_state=train_params.params.random_state)
+        cls = LogisticRegression(random_state=train_params.params.random_state,
+                                 solver=train_params.params.solver)
     elif train_params.model_type == "RandomForestClassifier":
         cls = RandomForestClassifier(random_state=train_params.params.random_state)
     else:
@@ -38,13 +39,13 @@ def predict(predict_pipeline: Pipeline, features: pd.DataFrame) -> np.ndarray:
 def cnt_metrics(predictions: np.ndarray, real_values: pd.Series, metrics: List[str]) -> Dict[str, float]:
     metrics_dict = {}
     if "accuracy_score" in metrics:
-        metrics_dict["accuracy"] = accuracy_score(predictions, real_values)
+        metrics_dict["accuracy_score"] = accuracy_score(predictions, real_values)
     if "precision_score" in metrics:
-        metrics_dict["precision"] = precision_score(predictions, real_values)
+        metrics_dict["precision_score"] = precision_score(predictions, real_values)
     if "recall_score" in metrics:
-        metrics_dict["recall"] = recall_score(predictions, real_values)
+        metrics_dict["recall_score"] = recall_score(predictions, real_values)
     if "roc_auc_score" in metrics:
-        metrics_dict["roc_auc"] = roc_auc_score(predictions, real_values)
+        metrics_dict["roc_auc_score"] = roc_auc_score(predictions, real_values)
     return metrics_dict
 
 

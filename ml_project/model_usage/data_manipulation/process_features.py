@@ -1,4 +1,6 @@
+import numpy as np
 import pandas as pd
+import scipy
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, OrdinalEncoder
@@ -51,4 +53,6 @@ def build_transformer(params: FeatureParams) -> ColumnTransformer:
 
 def make_features(data: pd.DataFrame, transformer: ColumnTransformer) -> pd.DataFrame:
     transformed_data = transformer.transform(data)
+    if isinstance(transformed_data, scipy.sparse.csr_matrix):
+        transformed_data = pd.DataFrame.sparse.from_spmatrix(transformed_data)
     return transformed_data

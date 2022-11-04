@@ -1,3 +1,8 @@
 .ipynb_checkpoints/
 .idea
 __pycache__
+.pytest_cache
+mlops_project.egg-info/
+.venv
+build
+dist
