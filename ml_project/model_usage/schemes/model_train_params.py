@@ -6,6 +6,7 @@ from typing import Optional
 class Params:
     random_state: int = field(default=42)
     solver: Optional[str] = field(default="lbfgs")
+    n_estimators: Optional[int] = field(default=100)
 
 
 @dataclass()

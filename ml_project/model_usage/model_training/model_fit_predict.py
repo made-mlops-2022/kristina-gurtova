@@ -19,7 +19,8 @@ def train_model(features: pd.DataFrame, target: pd.Series, train_params: TrainPa
         cls = LogisticRegression(random_state=train_params.params.random_state,
                                  solver=train_params.params.solver)
     elif train_params.model_type == "RandomForestClassifier":
-        cls = RandomForestClassifier(random_state=train_params.params.random_state)
+        cls = RandomForestClassifier(random_state=train_params.params.random_state,
+                                     n_estimators=train_params.params.n_estimators)
     else:
         raise NotImplementedError()
     cls.fit(features, target)
