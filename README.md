@@ -5,6 +5,10 @@ Train model:
 ~~~
 python3 model_usage/train.py configs/logreg_config.yaml
 ~~~
+Predict: 
+~~~
+python3 model_usage/predict.py configs/logreg_config.yaml
+~~~
 
 Критерии:
 --------
