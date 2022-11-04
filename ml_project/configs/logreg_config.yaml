@@ -3,7 +3,7 @@ paths:
   model_path: "models"
   metric_data_path: "metrics"
   test_data_path: "data/raw/heart_cleveland_upload.csv"
-  predictions_path: "data/predictions"
+  predictions_path: "data/predictions/test_labels.csv"
 
 splitting_params:
   val_size: 0.2
