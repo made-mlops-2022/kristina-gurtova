@@ -19,7 +19,7 @@ config_path = "configs/logreg_config.yaml"
 
 def test_end2end_training(config_file):
     with open(config_path, 'r') as f:
-        conf = yaml.safe_load(config_path)
+        conf = yaml.safe_load(f)
     train_pipeline(conf)
     assert os.path.exists(config_file.paths.model_path + f"/{config_file.train_params.model_type}_model.pkl")
     assert os.path.exists(config_file.paths.metric_data_path + f"/{config_file.train_params.model_type}_metrics.json")
@@ -31,5 +31,5 @@ def test_end2end_training(config_file):
 
 def test_end2end_predicting():
     with open(config_path, 'r') as f:
-        conf = yaml.safe_load(config_path)
+        conf = yaml.safe_load(f)
     predict_pipeline(conf)
