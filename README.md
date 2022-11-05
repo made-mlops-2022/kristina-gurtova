@@ -12,10 +12,7 @@ python3 model_usage/predict.py configs/logreg_config.yaml
 
 TODO:
 --------
-1) Логирование
-2) Конфигурация еще одна
-5) Hydra
-6) mlflow
+1) mlflow
 
 Критерии:
 --------

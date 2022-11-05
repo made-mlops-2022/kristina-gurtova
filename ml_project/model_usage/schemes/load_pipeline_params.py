@@ -8,6 +8,7 @@ from .model_feature_params import FeatureParams
 
 from marshmallow_dataclass import class_schema
 import yaml
+from omegaconf import DictConfig
 
 
 @dataclass()
@@ -22,7 +23,6 @@ class TrainingParams:
 TrainingParamsSchema = class_schema(TrainingParams)
 
 
-def get_params_from_config(config_path: str) -> TrainingParams:
-    with open(config_path, "r") as config:
-        schema = TrainingParamsSchema()
-        return schema.load(yaml.safe_load(config))
+def get_params_from_config(config: DictConfig) -> TrainingParams:
+    schema = TrainingParamsSchema()
+    return schema.load(config)
