@@ -40,4 +40,5 @@ jobs:
     - name: Train model
       run: |
         cd ml_project
-        python3 model_usage/train.py configs/logreg_config.yaml
+        python3 model_usage/predict.py --config-name rf_config.yaml
+
