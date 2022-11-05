@@ -11,13 +11,16 @@ from test_utils import generate_synthetic_data
 from pathlib import Path
 import pandas as pd
 import pytest
+import yaml
 
 config_path = "configs/logreg_config.yaml"
 
 
 @pytest.fixture()
 def config_file():
-    model_config = get_params_from_config(config_path)
+    with open(config_path, "r") as f:
+        conf = yaml.safe_load(f)
+    model_config = get_params_from_config(conf)
     return model_config
 
 
