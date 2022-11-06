@@ -1,16 +1,3 @@
-import json
-import logging
-import sys
-from typing import Dict, Tuple
-
-import hydra
-from omegaconf import DictConfig
-import mlflow
-from sklearn.pipeline import Pipeline
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 from data_manipulation import (
     read_data, train_val_split,
     get_target, make_features
@@ -21,6 +8,18 @@ from model_training import (
     predict, cnt_metrics, serialize_model
 )
 from schemes import get_params_from_config
+
+import json
+import logging
+import sys
+from typing import Dict, Tuple
+import hydra
+from omegaconf import DictConfig
+import mlflow
+from sklearn.pipeline import Pipeline
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def train_pipeline(config_path: DictConfig) -> Tuple[Dict[str, float], Pipeline]:

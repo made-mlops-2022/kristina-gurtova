@@ -7,7 +7,6 @@ from .model_train_params import TrainParams
 from .model_feature_params import FeatureParams
 
 from marshmallow_dataclass import class_schema
-import yaml
 from omegaconf import DictConfig
 
 

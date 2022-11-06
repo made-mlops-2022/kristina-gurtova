@@ -1,3 +1,7 @@
+from schemes import get_params_from_config
+from data_manipulation import read_data
+from model_testing import load_model, predict_labels, write_predictions
+
 import logging
 import sys
 import hydra
@@ -5,10 +9,6 @@ from omegaconf import DictConfig
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-from schemes import get_params_from_config
-from data_manipulation import read_data
-from model_testing import load_model, predict_labels, write_predictions
 
 
 def predict_pipeline(config_path: DictConfig) -> None:
