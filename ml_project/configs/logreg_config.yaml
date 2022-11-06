@@ -1,3 +1,4 @@
+use_mlflow: False
 paths:
   train_data_path: "data/raw/heart_cleveland_upload.csv"
   model_path: "models"
