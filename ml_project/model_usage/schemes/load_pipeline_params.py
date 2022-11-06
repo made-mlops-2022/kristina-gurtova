@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import List
+from dataclasses import dataclass, field
+from typing import List, Optional
 
 from .model_split_params import SplitParams
 from .model_paths import Paths
@@ -18,6 +18,7 @@ class TrainingParams:
     train_params: TrainParams
     feature_params: FeatureParams
     metrics: List[str]
+    use_mlflow: Optional[bool] = field(default=False)
 
 
 TrainingParamsSchema = class_schema(TrainingParams)

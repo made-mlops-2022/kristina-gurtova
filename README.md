@@ -3,16 +3,14 @@ MADE 2022
 
 Train model:
 ~~~
+cd ml_project
 python3 model_usage/train.py configs/logreg_config.yaml
 ~~~
 Predict: 
 ~~~
+cd ml_project
 python3 model_usage/predict.py configs/logreg_config.yaml
 ~~~
-
-TODO:
---------
-1) mlflow
 
 Критерии:
 --------

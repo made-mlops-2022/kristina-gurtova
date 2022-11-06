@@ -1,8 +1,12 @@
 import json
 import logging
 import sys
+from typing import Dict, Tuple
+
 import hydra
 from omegaconf import DictConfig
+import mlflow
+from sklearn.pipeline import Pipeline
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -19,7 +23,7 @@ from model_training import (
 from schemes import get_params_from_config
 
 
-def train_pipeline(config_path: DictConfig) -> None:
+def train_pipeline(config_path: DictConfig) -> Tuple[Dict[str, float], Pipeline]:
     train_params = get_params_from_config(config_path)
     logging.info(f"Train pipeline started with parameters {train_params}")
     data = read_data(train_params.paths.train_data_path)
@@ -52,11 +56,19 @@ def train_pipeline(config_path: DictConfig) -> None:
 
     serialize_model(fitted_pipeline, train_params.paths.model_path, train_params.train_params.model_type)
     logger.info(f"Serialized model into {train_params.paths.model_path}")
+    return res_metrics, fitted_pipeline
 
 
 @hydra.main(version_base=None, config_path="../configs")
-def train(config_path: DictConfig) -> None:
-    train_pipeline(config_path)
+def train(config: DictConfig) -> None:
+    if config.use_mlflow:
+        with mlflow.start_run():
+            metrics, model = train_pipeline(config)
+            mlflow.log_metrics(metrics)
+            mlflow.log_artifact(config.paths.model_path + f"/{config.train_params.model_type}_model.pkl")
+            mlflow.sklearn.log_model(model, config.train_params.model_type)
+    else:
+        train_pipeline(config)
 
 
 if __name__ == "__main__":

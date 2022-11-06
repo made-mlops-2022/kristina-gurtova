@@ -7,3 +7,6 @@ mlops_project.egg-info/
 build
 dist
 outputs/
+mlflow.db
+mlruns
+artifacts
