@@ -1,0 +1,41 @@
+use_mlflow: False
+paths:
+  train_data_path: "data/raw/heart_cleveland_upload.csv"
+  model_path: "models"
+  metric_data_path: "metrics"
+  test_data_path: "data/raw/heart_cleveland_upload.csv"
+  predictions_path: "data/predictions/test_labels.csv"
+
+splitting_params:
+  val_size: 0.2
+  random_state: 42
+
+train_params:
+  model_type: "LogisticRegression"
+  params:
+    random_state: 42
+    solver: liblinear
+
+feature_params:
+  preprocess:
+    numerical_preprocessor: "RandomCustomTransformer"
+    numerical_columns:
+        - "age"
+        - "trestbps"
+        - "chol"
+        - "thalach"
+        - "oldpeak"
+    categorical_preprocessor: "OneHotEncoder"
+    categorical_columns:
+        - "cp"
+        - "restecg"
+        - "slope"
+        - "ca"
+        - "thal"
+  target_col: "condition"
+
+metrics:
+  - "accuracy_score"
+  - "precision_score"
+  - "recall_score"
+  - "roc_auc_score"

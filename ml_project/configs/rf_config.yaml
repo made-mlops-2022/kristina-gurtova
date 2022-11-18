@@ -1,0 +1,41 @@
+use_mlflow: True
+
+paths:
+  train_data_path: "data/raw/heart_cleveland_upload.csv"
+  model_path: "models"
+  metric_data_path: "metrics"
+  test_data_path: "data/raw/heart_cleveland_upload.csv"
+  predictions_path: "data/predictions/test_labels.csv"
+
+splitting_params:
+  val_size: 0.3
+  random_state: 42
+
+train_params:
+  model_type: "RandomForestClassifier"
+  params:
+    random_state: 42
+    n_estimators: 200
+
+feature_params:
+  preprocess:
+    numerical_preprocessor: "MinMaxScaler"
+    numerical_columns:
+        - "age"
+        - "trestbps"
+        - "chol"
+        - "thalach"
+        - "oldpeak"
+    categorical_preprocessor: "OrdinalEncoder"
+    categorical_columns:
+        - "cp"
+        - "restecg"
+        - "slope"
+        - "ca"
+        - "thal"
+  target_col: "condition"
+
+metrics:
+  - "accuracy_score"
+  - "precision_score"
+  - "recall_score"
