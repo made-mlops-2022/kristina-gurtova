@@ -10,7 +10,7 @@ class InputFeatures(BaseModel):
     trestbps: int
     chol: int
     fbs: int = Field(ge=0, le=1)
-    restecg: int = Field(ge=0, le=1)
+    restecg: int = Field(ge=0, le=2)
     thalach: int
     exang: int = Field(ge=0, le=1)
     oldpeak: float

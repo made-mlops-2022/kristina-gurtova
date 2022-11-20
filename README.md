@@ -17,7 +17,7 @@ curl -X POST http://localhost:8080/predict -H 'Content-Type: application/json' -
 
 2) Напишите endpoint /health, который должен возращать 200, если ваша модель готова к работе (такой чек особенно актуален, если делаете доп задание про скачивание из хранилища) (1/1)
 
-3) Напишите unit тест для /predict (https://fastapi.tiangolo.com/tutorial/testing/, https://flask.palletsprojects.com/en/1.1.x/testing/) (0/3)
+3) Напишите unit тест для /predict (https://fastapi.tiangolo.com/tutorial/testing/, https://flask.palletsprojects.com/en/1.1.x/testing/) (3/3)
 
 4) Напишите скрипт, который будет делать запросы к вашему сервису (0/2)
 
