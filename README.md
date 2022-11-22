@@ -6,10 +6,24 @@ Run app:
 python3 server.py
 ```
 
+Health example:
+```bash
+python3 client.py http://127.0.0.1:8080/health -t GET
+```
+
 Predict example:
 ```bash
-curl -X POST http://localhost:8080/predict -H 'Content-Type: application/json' -d '{"data": [{"age":50, "sex":0, "cp":1, "trestbps":100, "chol":100, "fbs":0, "restecg":0, "thalach":100, "exang":0, "oldpeak":100.10, "slope":0, "ca":0, "thal":0}]}'
+python3 client.py http://127.0.0.1:8080/predict -t POST -d '{"data": [{"age":50, "sex":0, "cp":1, "trestbps":100, "chol":100, "fbs":0, "restecg":0, "thalach":100, "exang":0, "oldpeak":100.10, "slope":0, "ca":0, "thal":0}]}'
 ```
+
+Locally build and run docker:
+```bash
+docker build -t heart_cleveland_server .
+docker run heart_cleveland_server
+```
+
+TODO:
+- add envs
 
 Основная часть:
 
@@ -19,9 +33,9 @@ curl -X POST http://localhost:8080/predict -H 'Content-Type: application/json' -
 
 3) Напишите unit тест для /predict (https://fastapi.tiangolo.com/tutorial/testing/, https://flask.palletsprojects.com/en/1.1.x/testing/) (3/3)
 
-4) Напишите скрипт, который будет делать запросы к вашему сервису (0/2)
+4) Напишите скрипт, который будет делать запросы к вашему сервису (2/2)
 
-5) Напишите Dockerfile, соберите на его основе образ и запустите локально контейнер (docker build, docker run). Внутри контейнера должен запускаться сервис, написанный в предущем пункте. Закоммитьте его, напишите в README.md корректную команду сборки (0/4)
+5) Напишите Dockerfile, соберите на его основе образ и запустите локально контейнер (docker build, docker run). Внутри контейнера должен запускаться сервис, написанный в предущем пункте. Закоммитьте его, напишите в README.md корректную команду сборки (4/4)
 
 6) Опубликуйте образ в https://hub.docker.com/, используя docker push (вам потребуется зарегистрироваться) (0/2)
 
