@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import requests
 from fastapi import FastAPI
@@ -11,6 +13,9 @@ from app.schemas import Input
 app = FastAPI()
 model = None
 
+MODEL_PATH = os.environ.get("MODEL_PATH")
+MODEL_PATH = "https://storage.yandexcloud.net/model-storage-bucket/RandomForestClassifier_model.pkl"
+
 
 @app.exception_handler(RequestValidationError)
 async def http_exception_handler(request, exc):
@@ -19,7 +24,7 @@ async def http_exception_handler(request, exc):
 @app.on_event("startup")
 async def download_model():
     global model
-    url = 'https://storage.yandexcloud.net/model-storage-bucket/RandomForestClassifier_model.pkl'
+    url = MODEL_PATH
     r = requests.get(url, allow_redirects=True)
     model = pickle.loads(r.content)
 

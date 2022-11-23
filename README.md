@@ -8,18 +8,18 @@ python3 server.py
 
 Health example:
 ```bash
-python3 client.py http://127.0.0.1:8080/health -t GET
+python3 client.py http://localhost:8080/health -t GET
 ```
 
 Predict example:
 ```bash
-python3 client.py http://127.0.0.1:8080/predict -t POST -d '{"data": [{"age":50, "sex":0, "cp":1, "trestbps":100, "chol":101, "fbs":0, "restecg":0, "thalach":100, "exang":0, "oldpeak":100.10, "slope":0, "ca":0, "thal":0}]}'
+python3 client.py http://localhost:8080/predict -t POST -d '{"data": [{"age":50, "sex":0, "cp":1, "trestbps":100, "chol":101, "fbs":0, "restecg":0, "thalach":100, "exang":0, "oldpeak":100.10, "slope":0, "ca":0, "thal":0}]}'
 ```
 
 Locally build and run docker:
 ```bash
 docker build -t heart_cleveland_server .
-docker run heart_cleveland_server
+docker run --env-file ./.env -p 8080:8080 heart_cleveland_server
 ```
 
 TODO:
