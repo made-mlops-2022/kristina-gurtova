@@ -4,9 +4,9 @@ import requests
 parser = argparse.ArgumentParser(
     prog='Client',
     description='Program is simular to curl')
-parser.add_argument('url')  # positional argument
-parser.add_argument('-t', '--type', default="GET", choices=["GET", "POST"])  # option that takes a value
-parser.add_argument('-d', '--data', required=False)  # on/off flag
+parser.add_argument('url')
+parser.add_argument('-t', '--type', default="GET", choices=["GET", "POST"])
+parser.add_argument('-d', '--data', required=False)
 
 if __name__ == "__main__":
     args = parser.parse_args()
