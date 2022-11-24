@@ -36,9 +36,7 @@ def test_empty_input_predict():
             "/predict",
             data='{"data": []}'
         )
-        assert response.status_code == 200
-        assert "target" in response.json()
-        assert len(response.json()["target"]) == 0
+        assert response.status_code == 400
 
 
 def test_incorrect_input_predict():

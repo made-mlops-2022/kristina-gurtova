@@ -1,11 +1,10 @@
 FROM python:3.8-slim-buster
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./app project/app
 COPY ./server.py project/server.py
-
-EXPOSE 8080
+COPY ./test_server.py project/test_server.py
 
 WORKDIR /project
-CMD ["python", "server.py"]
+CMD ["python3", "server.py"]

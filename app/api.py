@@ -21,6 +21,7 @@ MODEL_PATH = "https://storage.yandexcloud.net/model-storage-bucket/RandomForestC
 async def http_exception_handler(request, exc):
     return PlainTextResponse(str(exc), status_code=400)
 
+
 @app.on_event("startup")
 async def download_model():
     global model
