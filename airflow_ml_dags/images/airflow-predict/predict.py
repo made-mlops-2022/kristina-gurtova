@@ -12,10 +12,12 @@ import pandas as pd
 @click.option("--output-dir")
 def predict(input_dir: str, transformer_path: str, model_path: str, output_dir: str):
     data = pd.read_csv(os.path.join(input_dir, "data.csv"))
-    with open(transformer_path) as transform_file:
+    print(transformer_path)
+    print(model_path)
+    with open("/data/" + transformer_path, "rb") as transform_file:
         transformer = pickle.load(transform_file)
     data = transformer.transform(data)
-    with open(model_path, "rb") as model_file:
+    with open("/data/" + model_path, "rb") as model_file:
         model = pickle.load(model_file)
     predictions = model.predict(data)
 

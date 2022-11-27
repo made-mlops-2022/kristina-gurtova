@@ -9,6 +9,8 @@ x-environment: &airflow_environment
   - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
   - AIRFLOW_CONN_ADMIN_CONN=fs://admin:admin@my-host:8080/my-schema?path=./data/
+  - AIRFLOW_VAR_MODEL_PATH=models/2022-11-27/model.pkl
+  - AIRFLOW_VAR_TRANSFORMER_PATH=transformers/2022-11-27/transformer.pkl
 
 
 x-airflow-image: &airflow_image apache/airflow:2.3.0-python3.8
