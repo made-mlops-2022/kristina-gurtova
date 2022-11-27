@@ -55,7 +55,6 @@ with DAG(
         task_id="docker-airflow-split",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
         mounts=[Mount(source="/Users/questina/Desktop/kristina-gurtova/airflow_ml_dags/data/",
                       target="/data",
                       type='bind')]
@@ -68,7 +67,6 @@ with DAG(
         task_id="docker-airflow-fit-scaler",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
         mounts=[Mount(source="/Users/questina/Desktop/kristina-gurtova/airflow_ml_dags/data/",
                       target="/data",
                       type='bind')]
@@ -83,7 +81,6 @@ with DAG(
         task_id="docker-airflow-fit-model",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
         mounts=[Mount(source="/Users/questina/Desktop/kristina-gurtova/airflow_ml_dags/data/",
                       target="/data",
                       type='bind')]
@@ -99,7 +96,6 @@ with DAG(
         task_id="docker-airflow-val",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
         mounts=[Mount(source="/Users/questina/Desktop/kristina-gurtova/airflow_ml_dags/data/",
                       target="/data",
                       type='bind')]
