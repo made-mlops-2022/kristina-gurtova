@@ -3,6 +3,7 @@ from datetime import timedelta
 import airflow
 
 from airflow import DAG
+from airflow.models import Variable
 from airflow.sensors.filesystem import FileSensor
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
@@ -17,9 +18,9 @@ default_args = {
 
 RAW_DATA_DIR = "/data/raw/{{ ds }}"
 PROCESSED_DATA_DIR = "/data/processed/{{ ds }}"
-MODEL_DIR = "/data/models/{{ ds }}"
+MODEL_PATH = Variable.get("model_path")
 METRICS_DIR = "/data/metrics/{{ ds }}"
-TRANSFORMER_DIR = "/data/transformers/{{ ds }}"
+TRANSFORMER_PATH = Variable.get("transformer_path")
 PREDICTIONS_DIR = "/data/predictions/{{ ds }}"
 
 with DAG(
@@ -40,7 +41,7 @@ with DAG(
 
     wait_model = FileSensor(
         task_id="wait-model",
-        filepath="models/{{ ds }}/model.pkl",
+        filepath=MODEL_PATH,
         fs_conn_id="ADMIN_CONN",
         mode="poke",
         timeout=6000,
@@ -50,7 +51,7 @@ with DAG(
 
     wait_transformer = FileSensor(
         task_id="wait-transformer",
-        filepath="transformers/{{ ds }}/transformer.pkl",
+        filepath=TRANSFORMER_PATH,
         fs_conn_id="ADMIN_CONN",
         mode="poke",
         timeout=6000,
@@ -61,8 +62,8 @@ with DAG(
     predict = DockerOperator(
         image="airflow-predict",
         command=f"--input-dir={RAW_DATA_DIR} "
-                f"--transformer-dir={TRANSFORMER_DIR} "
-                f"--model-dir={MODEL_DIR} "
+                f"--transformer-path={TRANSFORMER_PATH} "
+                f"--model-path={MODEL_PATH} "
                 f"--output-dir={PREDICTIONS_DIR}",
         network_mode="bridge",
         task_id="docker-airflow-predict",
