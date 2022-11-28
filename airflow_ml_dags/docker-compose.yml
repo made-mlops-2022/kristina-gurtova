@@ -11,6 +11,12 @@ x-environment: &airflow_environment
   - AIRFLOW_CONN_ADMIN_CONN=fs://admin:admin@my-host:8080/my-schema?path=./data/
   - AIRFLOW_VAR_MODEL_PATH=models/2022-11-27/model.pkl
   - AIRFLOW_VAR_TRANSFORMER_PATH=transformers/2022-11-27/transformer.pkl
+  - RAW_DATA_DIR=/data/raw/{{ ds }}
+  - PROCESSED_DATA_DIR=/data/processed/{{ ds }}
+  - MODEL_DIR=/data/models/{{ ds }}
+  - METRICS_DIR=/data/metrics/{{ ds }}
+  - TRANSFORMER_DIR=/data/transformers/{{ ds }}
+  - PREDICTIONS_DIR=/data/predictions/{{ ds }}
 
 
 x-airflow-image: &airflow_image apache/airflow:2.3.0-python3.8
@@ -50,7 +56,8 @@ services:
       - "8080:8080"
     volumes:
       - logs:/opt/airflow/logs
-    environment: *airflow_environment
+    environment:
+      *airflow_environment
     command: webserver
 
   scheduler:

@@ -1,3 +1,5 @@
+import os
+
 import airflow
 
 from airflow import DAG
@@ -7,10 +9,22 @@ from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 from docker.types import Mount
 
-from default_args import default_args, RAW_DATA_DIR, PREDICTIONS_DIR
+from datetime import timedelta
+
+default_args = {
+    "owner": "airflow",
+    "email": ["airflow@example.com"],
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5),
+    "email_on_failure": True,
+}
+
+RAW_DATA_DIR = os.environ["RAW_DATA_DIR"]
+PREDICTIONS_DIR = os.environ["PREDICTIONS_DIR"]
 
 MODEL_PATH = Variable.get("model_path")
 TRANSFORMER_PATH = Variable.get("transformer_path")
+
 
 with DAG(
         dag_id="predict",

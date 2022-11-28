@@ -1,10 +1,23 @@
+import os
+
 import airflow
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 from docker.types import Mount
 
-from default_args import default_args, RAW_DATA_DIR
+from datetime import timedelta
+
+default_args = {
+    "owner": "airflow",
+    "email": ["airflow@example.com"],
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5),
+    "email_on_failure": True,
+}
+
+RAW_DATA_DIR = os.environ["RAW_DATA_DIR"]
+
 
 with DAG(
         dag_id="generate_data",

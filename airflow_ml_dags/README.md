@@ -1,3 +1,24 @@
+Первый запуск:
+```bash
+docker-compose up --build
+```
+
+Остановка:
+```bash
+docker-compose stop
+```
+
+Возобновить работу:
+```bash
+docker-compose up
+```
+
+Тесты:
+```bash
+pytest
+```
+Добавила в data папку models и transformers для тестов
+
 0. Поднимите airflow локально, используя docker compose
 
 1. Реализуйте dag, который генерирует данные для обучения модели (5/5 баллов)
